@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "name": "nr1-alert-status",
+  "description": "Nerdpack nr1-alert-status",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "nr1 nerdpack:serve",
+    "test": "exit 0"
+  },
+  "nr1": {
+    "uuid": "f6b7cf8b-a0b4-4b4e-8bac-70816015d9db"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-table": "^6.10.3",
+    "lodash": "4.17.15",
+    "react-router": "5.1.2"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not ie < 11",
+    "not dead"
+  ]
+}
