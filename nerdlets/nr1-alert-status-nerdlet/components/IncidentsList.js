@@ -4,6 +4,7 @@ import { BillboardChart, BarChart, AreaChart, Stack, StackItem } from 'nr1';
 import ReactTable from "react-table";
 import sortBy from 'lodash/sortBy';
 
+
 export default class IncidentsList extends React.Component {
   static propTypes = {
     nerdletUrlState: PropTypes.object,
@@ -18,6 +19,7 @@ export default class IncidentsList extends React.Component {
   }
 
   render() {
+    console.log("O"+ this.props.accountId);
     const statusOpen = "'open'";
     const statusClosed = "'closed'";
     const days = 30;

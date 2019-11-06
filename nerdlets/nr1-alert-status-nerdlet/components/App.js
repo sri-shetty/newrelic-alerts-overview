@@ -12,8 +12,9 @@ export default class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.accountId = 1966971;
+        this.accountId = 1966971;   
     }
+
     intervalID;
     state = {
         incidentsList: []
@@ -56,6 +57,7 @@ export default class App extends React.Component {
             since = ` SINCE ${range / 1000 / 60} MINUTES AGO `;
             query = query + since;
         }
+        
         const q = NerdGraphQuery.query({
             query: `{
             actor {
@@ -67,7 +69,8 @@ export default class App extends React.Component {
               }
           }` });
         q.then(results => {
-            this.setState({ incidentsList: results.data.actor.account.nrql.results, isLoading: false })
+            this.setState({ incidentsList: results.data.actor.account.nrql.results , isLoading: false })
+            
         }).catch((error) => { console.log(error); })
     }
 
