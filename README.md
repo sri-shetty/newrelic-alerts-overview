@@ -1,4 +1,4 @@
-# @REPO@
+# @nr1-alerts-overview@
 
 ## Getting started
 
