@@ -16,7 +16,8 @@
     "react-dom": "^16.6.3",
     "react-table": "^6.10.3",
     "lodash": "4.17.15",
-    "react-router": "5.1.2"
+    "react-router": "5.1.2",
+    "react-global-configuration": "1.4.0"
   },
   "browserslist": [
     "last 2 versions",

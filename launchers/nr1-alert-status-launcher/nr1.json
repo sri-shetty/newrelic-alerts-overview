@@ -1,7 +1,7 @@
 {
     "schemaType": "LAUNCHER",
     "id": "nr1-alerts-overview-launcher",
-    "description": "Describe me",
-    "displayName": "Alert Overviewc",
+    "description": "Alert current status and trend",
+    "displayName": "Alert Overview",
     "rootNerdletId": "nr1-alerts-overview-nerdlet"
 }
