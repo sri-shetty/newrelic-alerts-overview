@@ -6,8 +6,8 @@ Update
 Run the following scripts:
 
 ```
-nr1 nerdpack:clone -r https://github.com/newrelic/nr1-status-pages.git
-cd nr1-status-pages
+nr1 nerdpack:clone -r https://github.com/pavankumarck/nr1-alerts-overview.git
+cd nr1-alerts-overview
 nr1 nerdpack:uuid -gf
 npm install
 npm start
