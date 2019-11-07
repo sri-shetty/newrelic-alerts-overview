@@ -15,7 +15,7 @@ nr1 nerdpack:clone -r https://github.com/pavankumarck/nr1-alerts-overview.git
 cd nr1-alerts-overview
 nr1 nerdpack:uuid -gf
 ```
-###Update AccountID, and new relic alert event name in  /nr1-alerts-overview/nerdlets/nr1-alert-overview-nerdlet/index.js  
+### Update AccountID, and new relic alert event name in  /nr1-alerts-overview/nerdlets/nr1-alert-overview-nerdlet/index.js  
 
 ```
 config.set({ accountId: 1234, eventName: 'alert', days: 7 });
