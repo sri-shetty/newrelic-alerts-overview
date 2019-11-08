@@ -3,7 +3,7 @@ import App from './components/App';
 import { AutoSizer, NerdletStateContext, PlatformStateContext } from "nr1";
 import config from 'react-global-configuration';
 
-config.set({ accountId: 1966971, eventName: 'alert', days: 7 });
+config.set({ accountId: 1234, eventName: 'alert', days: 7 });
 
 export default class Nr1AlertStatus extends React.Component {
 
