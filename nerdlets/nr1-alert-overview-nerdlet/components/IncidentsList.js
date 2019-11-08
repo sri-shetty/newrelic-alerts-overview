@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BillboardChart, BarChart, AreaChart, Stack, StackItem } from 'nr1';
+import { BillboardChart, BarChart,PieChart, AreaChart, Stack, StackItem } from 'nr1';
 import ReactTable from "react-table";
 import sortBy from 'lodash/sortBy';
 import config from 'react-global-configuration';
@@ -25,7 +25,7 @@ export default class IncidentsList extends React.Component {
     const statusOpen = "'open'";
     const statusClosed = "'closed'";
     const alertTrend = 'SELECT count(*) FROM ' + this.eventName + ' timeseries Since ' + this.days + ' days ago facet  current_state';
-    const alertCountByPolicy = 'SELECT count(*) FROM ' + this.eventName + '  where current_state=' + statusOpen + ' FACET policy_name Since ' + this.days + ' days ago';
+    const alertCountByAccount = 'SELECT count(*) FROM ' + this.eventName + '  where current_state=' + statusOpen + ' FACET account_name Since ' + this.days + ' days ago';
     const averageDurationByPolicy = 'SELECT average(duration)/1000/60  FROM ' + this.eventName + '  WHERE current_state = ' + statusClosed + ' SINCE ' + this.days + ' days ago FACET policy_name';
     const alertCountWOW = 'SELECT count(*) FROM ' + this.eventName + '  WHERE current_state = ' + statusOpen + ' SINCE 1 week ago COMPARE WITH 1 week ago';
     const final = {}
@@ -171,10 +171,10 @@ export default class IncidentsList extends React.Component {
         </Stack>
         <Stack horizontalType={Stack.HORIZONTAL_TYPE.FILL_EVENLY} fullWidth>
           <StackItem grow>
-            <h3>Alert Count By Policy - {this.days} day</h3>
-            <BarChart fullWidth
+            <h3>Alert Count By Account - {this.days} day</h3>
+            <PieChart fullWidth
               accountId={this.accountId}
-              query={alertCountByPolicy}
+              query={alertCountByAccount}
             />
           </StackItem>
           <StackItem grow>
