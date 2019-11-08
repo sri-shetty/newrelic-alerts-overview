@@ -16,7 +16,7 @@ npm -v
 Next, clone this repository and run the following scripts:
 
 ```
-nr1 nerdpack:clone -r https://github.com/pavankumarck/nr1-alerts-overview.git
+nr1 nerdpack:clone -r https://source.datanerd.us/dts/nr1-alerts-overview
 cd nr1-alerts-overview
 nr1 nerdpack:uuid -gf
 ```
