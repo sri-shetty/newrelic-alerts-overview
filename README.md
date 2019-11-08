@@ -1,26 +1,29 @@
-# nr1-alerts-overview
+# New Relic Alert Overview
 
 ## Usage
-Create a single dashboard to track the heatlh of entire business units or regions. Alert-Overview lets you monitor current status of alert based on New Relic alert status.
+Alert Overview is a single New Relic One dashboard to track the current status of alerts in a user intuitive fashion. All alerts, generated and action taken against them across your master and sub-accounts feed into Alert Overview dashboard.
 
-## Getting started
+## Pre-requisite
+You should have configured webhook to send New Relic Alerts data to Insights. Click [Sending Alerts Data to Insights](https://blog.newrelic.com/product-news/sending-alerts-data-to-insights/) to setup event feed.
 
-First, ensure that you have Git and NPM installed. If you're unsure whether you have one or both of them installed, run the following command(s) (If you have them installed these commands will return a version number, if not, the commands won't be recognized):
-
-Configure webhook to send alert data to insights,For more details- https://blog.newrelic.com/product-news/sending-alerts-data-to-insights/
+## Prerequsite
+First, ensure that you have Git and NPM installed. If you're unsure run the following commands to perform verification. If you have them installed these commands will return a version number, if not, the commands won't be recognized.
 
 ```
 git --version
 npm -v
 ```
-Next, clone this repository and run the following scripts:
+
+## Setup the Development Environment for New Relic One
+Follow the instruction outlined in Quick Start section of [developer.newrelic.com](https://developer.newrelic.com/) to setup your environment and when you are ready clone the Alert Overview.
 
 ```
-nr1 nerdpack:clone -r https://source.datanerd.us/dts/nr1-alerts-overview
+nr1 nerdpack:clone -r git@source.datanerd.us:dts/nr1-alerts-overview.git
 cd nr1-alerts-overview
-nr1 nerdpack:uuid -gf
 ```
-##### Update AccountID, and alert event name in /nr1-alerts-overview/nerdlets/nr1-alert-overview-nerdlet/index.js  
+
+### Configure the App for your account
+Update your New Relic AccountID, Alert event name and the days (how for back chart should show data) in the config.set statement of /nr1-alerts-overview/nerdlets/nr1-alert-overview-nerdlet/index.js  
 ```
 config.set({ accountId: 1234, eventName: 'alert', days: 7 });
 ```
@@ -31,19 +34,22 @@ npm install
 npm start
 ```
 
-Visit https://one.newrelic.com/?nerdpacks=local and :sparkles:
+Visit https://one.newrelic.com/?nerdpacks=local and click Alert Overview image to view the dashboard and :sparkles:
 
-## Deploying this Nerdpack
-
-Open a command prompt in the nerdpack's directory and run the following commands.
+## Deploying and Test the App
+If you are deploying the app into a different acount than where you have tested. First view the profiles in your development environment and then regenerate a uuid.
 
 ```
-# this is to create a new uuid for the nerdpack so that you can deploy it to your account
+nr1 profiles:list
 nr1 nerdpack:uuid -gf [--profile=your_profile_name]
-# to see a list of APIkeys / profiles available in your development environment, run nr1 credentials:list
+```
+
+Publish into registry then deploy into your account and enable it for access run following commands.
+
+```
 nr1 nerdpack:publish [--profile=your_profile_name]
 nr1 nerdpack:deploy [-c [DEV|BETA|STABLE]] [--profile=your_profile_name]
 nr1 nerdpack:subscribe [-c [DEV|BETA|STABLE]] [--profile=your_profile_name]
 ```
 
-Visit https://one.newrelic.com/ and :sparkles:
+Visit https://one.newrelic.com/ to validate the deployment :sparkles:
