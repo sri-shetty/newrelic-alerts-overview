@@ -166,13 +166,6 @@ export default class IncidentsList extends React.Component {
             />
           </StackItem>
           <StackItem grow>
-            <h3>Incident Count (Compared With Last Week)</h3>
-            <BillboardChart fullWidth
-              accountId={this.accountId}
-              query={alertCountWOW}
-            />
-          </StackItem>
-          <StackItem grow>
             <h3>Incident Trend - {this.days} day</h3>
             <AreaChart fullWidth
               accountId={this.accountId}
