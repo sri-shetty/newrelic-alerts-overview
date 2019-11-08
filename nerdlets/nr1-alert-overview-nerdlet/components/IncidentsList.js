@@ -29,7 +29,6 @@ export default class IncidentsList extends React.Component {
     const alertCountByCondition = 'SELECT count(*)  FROM ' + this.eventName + '  WHERE current_state = ' + statusOpen + ' SINCE ' + this.days + ' days ago FACET condition_name';
     const averageDurationByCondition = 'SELECT average(duration)/1000/60  FROM ' + this.eventName + '  WHERE current_state = ' + statusClosed + ' SINCE ' + this.days + ' days ago FACET condition_name';
     const alertCountByPolicy = 'SELECT count(*)  FROM ' + this.eventName + '  WHERE current_state = ' + statusOpen + ' SINCE ' + this.days + ' days ago FACET policy_name';
-    const averageDurationByPolicy = 'SELECT average(duration)/1000/60  FROM ' + this.eventName + '  WHERE current_state = ' + statusClosed + ' SINCE ' + this.days + ' days ago FACET policy_name';
     const alertCountWOW = 'SELECT count(*) FROM ' + this.eventName + '  WHERE current_state = ' + statusOpen + ' SINCE 1 week ago COMPARE WITH 1 week ago';
     
     const final = {}
@@ -186,13 +185,6 @@ export default class IncidentsList extends React.Component {
             <PieChart fullWidth
               accountId={this.accountId}
               query={alertCountByPolicy}
-            />
-          </StackItem>
-          <StackItem grow>
-            <h3>Average Incident Duration By Poilcy - {this.days} day</h3>
-            <BarChart fullWidth
-              accountId={this.accountId}
-              query={averageDurationByPolicy}
             />
           </StackItem>
           <StackItem grow>
