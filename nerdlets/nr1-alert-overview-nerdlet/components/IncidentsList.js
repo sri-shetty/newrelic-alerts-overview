@@ -65,8 +65,9 @@ export default class IncidentsList extends React.Component {
     return (
 
       <div>
+        
         <h2>Current Alert Status</h2>
-        <div>
+        <div style={{marginBottom:'20px',marginTop:'20px' }}>
           <ReactTable
             data={sortedData}
             filterable
@@ -179,7 +180,9 @@ export default class IncidentsList extends React.Component {
             />
           </StackItem>
         </Stack>
-        <Stack horizontalType={Stack.HORIZONTAL_TYPE.FILL_EVENLY} fullWidth>
+
+        
+        <Stack horizontalType={Stack.HORIZONTAL_TYPE.FILL_EVENLY} fullWidth style = {{marginTop:'20px'}}>
           <StackItem grow>
             <h3>Alert Count By Poilcy - {this.days} day</h3>
             <PieChart fullWidth
@@ -203,6 +206,7 @@ export default class IncidentsList extends React.Component {
           </StackItem>
           
         </Stack>
+ 
       </div>
     )
   };
