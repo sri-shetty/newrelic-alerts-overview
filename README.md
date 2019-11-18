@@ -34,7 +34,7 @@ npm install
 npm start
 ```
 
-Visit https://one.newrelic.com/?nerdpacks=local and click Alert Overview image to view the dashboard and :sparkles:
+Visit https://one.newrelic.com/?nerdpacks=local and click <img src="./images/Alert.png" width="75" height="25"> to view the dashboard :sparkles:
 
 ## Deploying and Test the App
 If you are deploying the app into a different acount than where you have tested. First view the profiles in your development environment and then regenerate a uuid.
