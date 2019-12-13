@@ -44,6 +44,7 @@ export default class IncidentsList extends React.Component {
         accountName: incident.account_name,
         conditionName: incident.condition_name,
         currentState: incident.current_state,
+        details: incident.details,
         duration: ((incident.duration) / 1000 / 60).toFixed(0),
         incidentUrl: incident.incident_url,
         policyName: incident.policy_name,
@@ -74,9 +75,9 @@ export default class IncidentsList extends React.Component {
             defaultFilterMethod={(filter, row) => { return row[filter.id].toString().toLowerCase().includes(filter.value.toString().toLowerCase()) }}
             columns={[
               {
-                Header: () => <strong>AccountId #</strong>,
+                Header: () => <strong>Account #</strong>,
                 accessor: "accountId",
-                width: 125,
+                width: 75,
               },
               {
                 Header: () => <strong>Account Name</strong>,
@@ -86,17 +87,21 @@ export default class IncidentsList extends React.Component {
               {
                 Header: () => <strong>Incident #</strong>,
                 accessor: "incidentNumber",
-                width: 125,
+                width: 75,
               },
               {
                 Header: () => <strong>Condition Name</strong>,
                 accessor: "conditionName",
-                //width: 200,
+                width: 225,
+              },
+              {
+                Header: () => <strong>Details</strong>,
+                accessor: "details",
               },
               {
                 Header: () => <strong>Status</strong>,
                 accessor: "currentState",
-                width: 125,
+                width: 75,
                 id: "currentState",
                 Cell: row => (
                   <span>
@@ -133,12 +138,12 @@ export default class IncidentsList extends React.Component {
               {
                 Header: () => <strong>Duration(min)</strong>,
                 accessor: "duration",
-                width: 125,
+                width: 100,
               },
               {
                 Header: () => <strong>Policy Name</strong>,
                 accessor: "policyName",
-                width: 200,
+                width: 250,
               },
               {
                 Header: () => <strong>Created At</strong>,
