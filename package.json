@@ -2,13 +2,13 @@
   "private": true,
   "name": "nr1-alert-status",
   "description": "Nerdpack nr1-alert-status",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "start": "nr1 nerdpack:serve",
     "test": "exit 0"
   },
   "nr1": {
-    "uuid": "91db28c2-6586-4bf2-a194-691204dddb72"
+    "uuid": "c007fc9f-749f-4b24-8b57-0a05f9febde0"
   },
   "dependencies": {
     "prop-types": "^15.6.2",
