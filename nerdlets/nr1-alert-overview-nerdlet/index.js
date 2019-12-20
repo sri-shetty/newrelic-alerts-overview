@@ -2,8 +2,9 @@ import React from 'react';
 import App from './components/App';
 import { AutoSizer, NerdletStateContext, PlatformStateContext } from "nr1";
 import config from 'react-global-configuration';
+import IncidentsList from './components/IncidentsList';
 
-config.set({ accountId: 12345, eventName: 'alert', days: 7 });
+config.set({ accountId: 12345, eventName: 'alert' });
 
 export default class Nr1AlertStatus extends React.Component {
 

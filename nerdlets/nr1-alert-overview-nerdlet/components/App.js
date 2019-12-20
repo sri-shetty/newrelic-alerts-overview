@@ -26,10 +26,7 @@ export default class App extends React.Component {
         var duration = this.props.launcherUrlState.timeRange.duration;
         const customRange = 0;
         this.getData(customRange, duration);
-        //this.intervalID = setInterval(this.getData.bind(this), 5000);
-    }
-    componentWillUnmount() {
-        clearInterval(this.intervalID);
+
     }
 
     componentDidUpdate(prevProps) {
@@ -54,11 +51,11 @@ export default class App extends React.Component {
             const beginTime = new Date(this.props.launcherUrlState.timeRange.begin_time).toISOString().slice(0, 19);
             const endTime = new Date(this.props.launcherUrlState.timeRange.end_time).toISOString().slice(0, 19);
             since = ` SINCE '${beginTime}' ` + ` UNTIL '${endTime}' `;
-            query = query + since;
+            query = query + since + `limit MAX`;
         }
         else {
             since = ` SINCE ${range / 1000 / 60} MINUTES AGO `;
-            query = query + since;
+            query = query + since + `limit MAX`;
         }
 
         const q = NerdGraphQuery.query({
@@ -73,7 +70,6 @@ export default class App extends React.Component {
           }` });
         q.then(results => {
             this.setState({ incidentsList: results.data.actor.account.nrql.results, isLoading: false })
-
         }).catch((error) => { console.log(error); })
     }
 
@@ -83,7 +79,7 @@ export default class App extends React.Component {
             return <p>Loading ...</p>;
         }
         return (
-            <IncidentsList incidentsList={this.state.incidentsList} />
+            <IncidentsList incidentsList={this.state.incidentsList} timePicker={this.props.launcherUrlState.timeRange} />
         );
     }
 }

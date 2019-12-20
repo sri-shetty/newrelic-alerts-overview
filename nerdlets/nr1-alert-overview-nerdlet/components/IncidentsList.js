@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BillboardChart, BarChart,PieChart, AreaChart, Stack, StackItem } from 'nr1';
+import { BillboardChart, BarChart, PieChart, AreaChart, Stack, StackItem } from 'nr1';
 import ReactTable from "react-table";
 import sortBy from 'lodash/sortBy';
 import config from 'react-global-configuration';
 
 export default class IncidentsList extends React.Component {
   static propTypes = {
-    nerdletUrlState: PropTypes.object,
-    launcherUrlState: PropTypes.object,
     width: PropTypes.number,
     height: PropTypes.number
   };
@@ -17,25 +15,34 @@ export default class IncidentsList extends React.Component {
     super(props);
     this.accountId = config.get('accountId')
     this.eventName = config.get('eventName')
-    this.days = config.get('days')
   }
 
   render() {
+    var duration = this.props.timePicker.duration;
+    var since = ` SINCE ${duration / 1000 / 60} MINUTES AGO `;
+    if (duration != null) {
+      since = ` SINCE ${duration / 1000 / 60} MINUTES AGO `;
+    }
+    else {
+      const beginTime = new Date(this.props.timePicker.begin_time).toISOString().slice(0, 19);
+      const endTime = new Date(this.props.timePicker.end_time).toISOString().slice(0, 19);
+      since = ` SINCE '${beginTime}' ` + ` UNTIL '${endTime}' `;
+    }
 
     const statusOpen = "'open'";
     const statusClosed = "'closed'";
-    const alertTrend = 'SELECT count(*) FROM ' + this.eventName + ' timeseries Since ' + this.days + ' days ago facet  current_state';
-    const alertCountByAccount = 'SELECT count(*) FROM ' + this.eventName + '  where current_state=' + statusOpen + ' FACET account_name Since ' + this.days + ' days ago';
-    const alertCountByCondition = 'SELECT count(*)  FROM ' + this.eventName + '  WHERE current_state = ' + statusOpen + ' SINCE ' + this.days + ' days ago FACET condition_name';
-    const averageDurationByCondition = 'SELECT average(duration)/1000/60  FROM ' + this.eventName + '  WHERE current_state = ' + statusClosed + ' SINCE ' + this.days + ' days ago FACET condition_name';
-    const alertCountByPolicy = 'SELECT count(*)  FROM ' + this.eventName + '  WHERE current_state = ' + statusOpen + ' SINCE ' + this.days + ' days ago FACET policy_name';
-    const alertCountWOW = 'SELECT count(*) FROM ' + this.eventName + '  WHERE current_state = ' + statusOpen + ' SINCE 1 week ago COMPARE WITH 1 week ago';
-    
+    var alertTrend = 'SELECT count(*) FROM ' + this.eventName + ' timeseries' + since + '  facet  current_state';
+    var alertCountByAccount = 'SELECT count(*) FROM ' + this.eventName + '  where current_state=' + statusOpen + ' FACET account_name ' + since;
+    var alertCountByCondition = 'SELECT count(*)  FROM ' + this.eventName + '  WHERE current_state = ' + statusOpen + since + ' FACET condition_name';
+    var averageDurationByCondition = 'SELECT average(duration)/1000/60  FROM ' + this.eventName + '  WHERE current_state = ' + statusClosed + since + ' FACET condition_name';
+    var alertCountByPolicy = 'SELECT count(*)  FROM ' + this.eventName + '  WHERE current_state = ' + statusOpen + since + '  FACET policy_name';
+    var alertCountWOW = 'SELECT count(*) FROM ' + this.eventName + '  WHERE current_state = ' + statusOpen + since + ' COMPARE WITH 1 week ago';
     const final = {}
 
     this.props.incidentsList.map(incident => {
       let incidentData = final[incident.incident_id]
       if (!incidentData) {
+
         incidentData = []
       }
       incidentData.push({
@@ -51,6 +58,7 @@ export default class IncidentsList extends React.Component {
         time: incident.timestamp,
         timestamp: new Date(incident.timestamp).toISOString().slice(0, 19)
       });
+
       incidentData = sortBy(incidentData, function (incidentData) {
         return incidentData.time
       }).reverse();
@@ -62,13 +70,10 @@ export default class IncidentsList extends React.Component {
       let array = final[key];
       sortedData.push(array[0])
     });
-
     return (
-
       <div>
-        
         <h2>Current Alert Status</h2>
-        <div style={{marginBottom:'20px',marginTop:'20px' }}>
+        <div style={{ marginBottom: '20px', marginTop: '20px' }}>
           <ReactTable
             data={sortedData}
             filterable
@@ -126,13 +131,11 @@ export default class IncidentsList extends React.Component {
                   <select
                     onChange={event => onChange(event.target.value)}
                     style={{ width: "100%" }}
-                    value={filter ? filter.value : ""}
-                  >
+                    value={filter ? filter.value : ""}>
                     <option value="">All</option>
                     <option value="open">Open</option>
                     <option value="closed">Closed</option>
                     <option value="acknowledged">Acknowledged</option>
-
                   </select>
               },
               {
@@ -155,63 +158,52 @@ export default class IncidentsList extends React.Component {
                 accessor: "incidentUrl",
                 Cell: e => <a href={e.value} target="_blank"> {e.value}  </a>
               }
-
             ]}
             defaultPageSize={10}
-            className="-striped -highlight"
-
-          />
+            className="-striped -highlight" />
         </div>
+
         <Stack horizontalType={Stack.HORIZONTAL_TYPE.FILL_EVENLY} fullWidth>
-        <StackItem grow>
-            <h3>Alert Count By Account - {this.days} day</h3>
+          <StackItem grow>
+            <h3>Alert Count By Account</h3>
             <PieChart fullWidth
               accountId={this.accountId}
-              query={alertCountByAccount}
-            />
+              query={alertCountByAccount} />
           </StackItem>
           <StackItem grow>
-            <h3>Incident Trend - {this.days} day</h3>
+            <h3>Incident Trend</h3>
             <AreaChart fullWidth
               accountId={this.accountId}
-              query={alertTrend}
-            />
+              query={alertTrend} />
           </StackItem>
           <StackItem grow>
             <h3>Incident Count (Compared With Last Week)</h3>
             <BillboardChart fullWidth
               accountId={this.accountId}
-              query={alertCountWOW}
-            />
+              query={alertCountWOW} />
           </StackItem>
         </Stack>
 
-        
-        <Stack horizontalType={Stack.HORIZONTAL_TYPE.FILL_EVENLY} fullWidth style = {{marginTop:'20px'}}>
+        <Stack horizontalType={Stack.HORIZONTAL_TYPE.FILL_EVENLY} fullWidth style={{ marginTop: '20px' }}>
           <StackItem grow>
-            <h3>Alert Count By Poilcy - {this.days} day</h3>
+            <h3>Alert Count By Poilcy </h3>
             <PieChart fullWidth
               accountId={this.accountId}
-              query={alertCountByPolicy}
-            />
+              query={alertCountByPolicy} />
           </StackItem>
           <StackItem grow>
-            <h3>Alert Count By Condition - {this.days} day</h3>
+            <h3>Alert Count By Condition </h3>
             <PieChart fullWidth
               accountId={this.accountId}
-              query={alertCountByCondition}
-            />
+              query={alertCountByCondition} />
           </StackItem>
           <StackItem grow>
-            <h3>Average Incident Duration By Condition  - {this.days} day</h3>
+            <h3>Average Incident Duration By Condition</h3>
             <BarChart fullWidth
               accountId={this.accountId}
-              query={averageDurationByCondition}
-            />
+              query={averageDurationByCondition} />
           </StackItem>
-          
         </Stack>
- 
       </div>
     )
   };
