@@ -23,7 +23,8 @@ cd nr1-alerts-overview
 ```
 
 ### Configure the App for your account
-Update your New Relic AccountID, Alert event name and the days (how for back chart should show data) in the config.set statement of /nr1-alerts-overview/nerdlets/nr1-alert-overview-nerdlet/index.js  
+Update your New Relic AccountID and webhook alert event_name in the config.set statement under 
+/nr1-alerts-overview/nerdlets/nr1-alert-overview-nerdlet/index.js  
 ```
 config.set({ accountId: 1234, eventName: 'alert' });
 ```
