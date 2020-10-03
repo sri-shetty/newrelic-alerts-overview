@@ -7,17 +7,14 @@
     "start": "nr1 nerdpack:serve",
     "test": "exit 0"
   },
-  "nr1": {
-    "uuid": "5c285c22-ae7d-429f-87f2-28af4c7a96a6"
-  },
   "dependencies": {
+    "lodash": "^4.17.20",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-table": "^6.10.3",
-    "lodash": "4.17.15",
+    "react-global-configuration": "^1.4.0",
     "react-router": "5.1.2",
-    "react-global-configuration": "1.4.0"
+    "react-table": "^6.10.3"
   },
   "browserslist": [
     "last 2 versions",

@@ -57,20 +57,24 @@ export default class App extends React.Component {
             since = ` SINCE ${range / 1000 / 60} MINUTES AGO `;
             query = query + since + `limit MAX`;
         }
-
-        const q = NerdGraphQuery.query({
-            query: `{
+        const gql = `{
             actor {
-                account(id: ${this.accountId}) {
-                  nrql(query: "${query}") {
-                    results
-                  }
+              account(id: ${this.accountId}) {
+                nrql(query: "${query}") {
+                  results
                 }
               }
-          }` });
-        q.then(results => {
+            }
+        }`
+        //console.info("gql: ", gql)
+        const alertsDetails = NerdGraphQuery.query({query: gql});
+        alertsDetails.then(results => {
+            //console.info('Nerdgrpah results: ', results)
             this.setState({ incidentsList: results.data.actor.account.nrql.results, isLoading: false })
-        }).catch((error) => { console.log(error); })
+        }).catch((error) => { 
+            //console.info('Nerdgrpah error: ', error)
+            console.log(error); 
+        })
     }
 
     render() {

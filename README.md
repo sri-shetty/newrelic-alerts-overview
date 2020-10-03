@@ -29,9 +29,18 @@ Update your New Relic AccountID and webhook alert event_name in the config.set s
 config.set({ accountId: 1234, eventName: 'alert' });
 ```
 
-### Run below command to start the app 
+### Run below commands 
+#### Install dependecy packages
+Fix any vulnerabilities in the libraries by upgrading to fixed versions.
 ```
 npm install
+```
+Generate unique identifier for your nerdpack profile
+````
+nr1 nerdpack:uuid -g
+````
+Start the application locally
+````
 npm start
 ```
 
