@@ -40,7 +40,7 @@ Generate unique identifier for your nerdpack profile
 nr1 nerdpack:uuid -g
 ````
 Start the application locally
-````
+```
 npm start
 ```
 
